@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Record a meal and see your meal history in NutriTrack.">
+    <title>NutriTrack · Meal journal</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/app.js" defer></script>
+  </head>
+  <body>
+    <header class="page-header">
+      <a class="brand" href="/">NutriTrack<span aria-hidden="true">.</span></a>
+      <span class="edition">Meal journal</span>
+    </header>
+
+    <main>
+      <div class="intro">
+        <p class="eyebrow">A little more mindful, one meal at a time</p>
+        <h1>What’s on your plate?</h1>
+        <p>Record a meal. Keep track of the ingredients.</p>
+      </div>
+
+      <div class="workspace">
+        <section class="entry-panel" aria-labelledby="entry-title">
+          <h2 id="entry-title">Add a meal</h2>
+          <form id="meal-form">
+            <label for="meal-name">Meal name</label>
+            <input id="meal-name" name="meal-name" placeholder="e.g. Lunch" required>
+
+            <fieldset>
+              <legend>Ingredient</legend>
+              <label for="ingredient-name">Name</label>
+              <input id="ingredient-name" name="ingredient-name" placeholder="e.g. Chicken thigh" required>
+
+              <label for="grams">Amount</label>
+              <div class="amount-input">
+                <input id="grams" name="grams" type="number" min="0.01" step="any" inputmode="decimal" placeholder="150" aria-describedby="grams-unit" required>
+                <span id="grams-unit">grams</span>
+              </div>
+            </fieldset>
+
+            <button id="save-button" type="submit">Save meal <span aria-hidden="true">↗</span></button>
+            <p id="save-status" class="status" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+
+        <section class="history-panel" aria-labelledby="history-title">
+          <div class="section-header">
+            <h2 id="history-title">Your meals <span id="meal-count" class="count"></span></h2>
+            <button id="refresh-button" class="text-button" type="button">Refresh</button>
+          </div>
+          <p id="list-status" class="status" role="status" aria-live="polite">Loading meals…</p>
+          <ul id="meal-list" class="meal-list" aria-label="Recorded meals"></ul>
+        </section>
+      </div>
+
+      <footer>Local session · New meals clear when the server restarts. The two starter meals are examples.</footer>
+    </main>
+  </body>
+</html>

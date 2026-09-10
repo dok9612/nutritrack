@@ -1,0 +1,74 @@
+:root {
+  color-scheme: light;
+  --ink: #172a27;
+  --muted: #546761;
+  --green: #126149;
+  --line: #d6e1dd;
+  --paper: #f4f7f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 16px;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+button:disabled { cursor: wait; opacity: .65; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid #be6c0f; outline-offset: 4px; }
+
+.page-header {
+  max-width: 1180px;
+  margin: auto;
+  padding: 28px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  gap: 16px;
+}
+.brand { font-size: 1.5rem; font-weight: 750; letter-spacing: -.06em; text-decoration: none; }
+.brand span { color: var(--green); }
+.edition { font-size: .875rem; color: var(--muted); }
+main { max-width: 1180px; margin: auto; padding: 38px 36px 24px; }
+.intro { margin-bottom: 32px; }
+.eyebrow { color: var(--green); font-size: .875rem; font-weight: 650; margin: 0 0 12px; }
+h1 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.05em; line-height: 1.1; margin: 0 0 12px; }
+.intro > p:last-child { color: var(--muted); margin: 0; line-height: 1.5; }
+h2 { font-size: 1.25rem; letter-spacing: -.025em; margin: 0; }
+.workspace { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 40px; align-items: start; }
+.entry-panel { padding: 26px; background: white; border: 1px solid var(--line); border-radius: 16px; }
+.entry-panel h2 { margin-bottom: 26px; }
+label { display: block; font-size: .875rem; font-weight: 600; margin-bottom: 8px; }
+input { width: 100%; min-width: 0; background: #fff; color: var(--ink); padding: 12px; border: 1px solid #a7b9b2; border-radius: 7px; }
+input::placeholder { color: #64766f; }
+fieldset { border: 0; border-top: 1px solid var(--line); margin: 26px 0; padding: 18px 0 0; min-width: 0; }
+legend { font-size: .875rem; font-weight: 650; padding: 0 10px 0 0; }
+fieldset > input { margin-bottom: 18px; }
+.amount-input { position: relative; }
+.amount-input input { padding-right: 78px; }
+.amount-input span { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: .875rem; pointer-events: none; }
+#save-button { width: 100%; display: flex; align-items: center; justify-content: space-between; background: var(--green); color: white; border: 0; border-radius: 7px; min-height: 48px; padding: 12px 16px; font-weight: 600; }
+#save-button:hover { background: #0a4c38; }
+.section-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; min-height: 44px; margin: 0 0 12px; }
+.count { display: inline-block; margin-left: 8px; color: var(--muted); font-size: .875rem; font-weight: 400; }
+.text-button { color: var(--green); border: 0; background: none; padding: 12px 0 12px 12px; font-size: .875rem; text-decoration: underline; text-underline-offset: 4px; }
+.meal-list { padding: 0; margin: 0; list-style: none; display: grid; gap: 12px; }
+.meal-card { background: white; border: 1px solid var(--line); border-left: 4px solid var(--green); border-radius: 9px; padding: 22px; overflow-wrap: anywhere; }
+.meal-card h3 { font-size: 1.125rem; margin: 0 0 14px; letter-spacing: -.02em; }
+.ingredients { list-style: none; padding: 0; display: grid; gap: 10px; }
+.ingredients li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; color: var(--muted); line-height: 1.5; }
+.ingredients .weight { flex-shrink: 0; font-variant-numeric: tabular-nums; color: var(--ink); }
+.status { color: var(--muted); font-size: .875rem; line-height: 1.5; margin: 14px 0 0; }
+.status:empty { display: none; }
+#list-status { margin: 0 0 16px; }
+.status[data-error="true"] { color: #a12e21; }
+footer { color: var(--muted); font-size: .875rem; line-height: 1.5; border-top: 1px solid var(--line); margin-top: 36px; padding-top: 18px; }
+@media (max-width: 760px) {
+  .page-header { padding: 20px; }
+  main { padding: 28px 20px 20px; }
+  .workspace { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .entry-panel { padding: 22px; }
+}
