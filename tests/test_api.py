@@ -211,3 +211,74 @@ def test_returns_nonempty_id(client, valid_payload):
 
     assert isinstance(created["id"], str)
     assert created["id"]
+
+
+def test_sorted_meals(client):
+    response = client.get("/meals")
+    assert response.status_code == 200
+
+    meals = response.json()
+
+    ids = [meal["id"] for meal in meals]
+
+    assert ids == [
+        "meal_001",
+        "meal_002",
+        "meal_003",
+        "meal_004",
+    ]
+
+
+def test_name_filter_is_case_insensitive(client):
+    response = client.get("/meals", params={"name": "dAkGAlBi"})
+
+    assert response.status_code == 200
+
+    meals = response.json()
+
+    assert len(meals) == 1
+    assert meals[0]["name"] == "dakgalbi"
+
+
+def test_name_filter_requires_exact_match(client):
+    response = client.get("/meals", params={"name": "dak"})
+
+    assert response.status_code == 200
+    assert response.json() == []
+
+
+def test_returns_empty_list_when_no_match_found(client):
+    response = client.get("/meals", params={"name": "not-found"})
+
+    assert response.status_code == 200
+
+    meals = response.json()
+
+    assert meals == []
+
+
+def test_adjacent_pages_do_not_overlap(client):
+    response_1 = client.get("/meals", params={"offset": 0, "limit": 2})
+    response_2 = client.get("/meals", params={"offset": 2, "limit": 2})
+
+    assert response_1.status_code == 200
+    assert response_2.status_code == 200
+
+    meals_1 = response_1.json()
+    meals_2 = response_2.json()
+
+    ids_1 = [meal["id"] for meal in meals_1]
+    ids_2 = [meal["id"] for meal in meals_2]
+
+    assert ids_1 == ["meal_001", "meal_002"]
+    assert ids_2 == ["meal_003", "meal_004"]
+    assert set(ids_1).isdisjoint(ids_2)
+
+
+@pytest.mark.parametrize(
+    "params", [{"offset": -1}, {"limit": 0}, {"limit": 101}, {"limit": -99}]
+)
+def test_reject_invalid_inputs_for_offset_limit(client, params):
+    response = client.get("/meals", params=params)
+
+    assert response.status_code == 422
